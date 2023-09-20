@@ -1,17 +1,18 @@
 import React from "react";
-import FilterSwitch from "./filterSwitch";
-import JobItem from "./jobItem";
-import {useGetAllCleaningsQuery} from "../services/cleaningsApi";
+import FilterSwitch from "../filterSwitch";
+import JobItem from "../jobItem/jobItem";
+import {jobsSorter, useGetAllCleaningsQuery} from "../../services/cleaningsApi";
+import "./cleaningsList.css"
+import {useSelector} from "react-redux";
 
 function CleaningsList() {
     const {data, isLoading} = useGetAllCleaningsQuery()
 
     return (
-
         <div>
             <FilterSwitch/>
 
-            <table>
+            <table className="cleaningsTable">
                 <thead>
                 <tr>
                     <td>Address</td>
@@ -22,7 +23,7 @@ function CleaningsList() {
                 </tr>
                 </thead>
                 <tbody>
-                {data && data.jobs.map(item => <JobItem key={item.uuid} {...item}/>)}
+                {data && jobsSorter(data.jobs, data.jobsByLocation).map(item => <JobItem key={item.uuid} {...item}/>)}
                 {data?.jobs.length === 0 && <tr>
                     <td>no jobs</td>
                 </tr>}

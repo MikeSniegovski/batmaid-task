@@ -20,7 +20,8 @@ export interface Job {
     "type": JobType,
     "duration": number,
     "location": string,
-    "locationUuid": string
+    "locationUuid": string,
+    position?: string
 }
 
 export interface JobsByLocation {

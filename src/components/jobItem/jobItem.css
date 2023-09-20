@@ -1,0 +1,7 @@
+.cleaningsItem td {
+  padding: 1em 0;
+}
+
+.cleaningsItem.last:not(:last-child) td {
+  border-bottom: 1px solid var(--border-colour);
+}

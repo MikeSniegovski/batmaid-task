@@ -1,0 +1,12 @@
+.cleaningsTable thead td {
+  font-weight: bold;
+  padding: 0.5em 0;
+  border-bottom: 2px solid var(--border-colour);
+}
+.cleaningsTable td:last-child {
+  text-align: right;
+}
+.cleaningsTable {
+  width: 100%;
+  border-spacing: 0;
+}
