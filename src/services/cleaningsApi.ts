@@ -10,8 +10,11 @@ export const cleaningsApi = createApi({
     reducerPath: 'cleaningsApi',
     baseQuery: fetchBaseQuery({baseUrl: '/'}),
     endpoints: (builder) => ({
-        getAllCleanings: builder.query<ApiResp, void>({
+        getAllCleanings: builder.query<Job[], void>({
             query: () => `cleanings`,
+            transformResponse: (resp: ApiResp) => {
+                return jobsSorter(resp.jobs, resp.jobsByLocation)
+            }
         }),
     }),
 })
@@ -21,15 +24,13 @@ export const {useGetAllCleaningsQuery} = cleaningsApi
 export const jobsSorter = (jobs: Job[], jobsByLocation: JobsByLocation[]) => {
     let transformed: Job[] = []
     jobsByLocation.forEach(location => {
-        location.jobs.forEach((job, index) => {
-            let enhancedJob = jobs.find(item => item.uuid === job)
+        const byLocation: Job[] = jobs.filter(item=> location.jobs.includes(item.uuid)).sort(sortByDate)
+        const enhancedJobs = byLocation.map((item, index)=> ({...item, position: jobLocationPosition(index, byLocation.length - 1)}))
 
-            if(enhancedJob){
-                let position = jobLocationPosition(index, location.jobs.length - 1)
-
-                transformed.push({...enhancedJob, position})
-            }
-        })
+        transformed = [
+            ...transformed,
+            ...enhancedJobs
+        ]
     })
 
     return transformed
@@ -43,4 +44,11 @@ const jobLocationPosition = (index: number, length: number):string => {
         return "last"
     }
     return ""
+}
+
+const sortByDate = (jobA: Job, jobB: Job) => {
+    const dateJobA = Number(new Date(jobA.executionDate))
+    const dateJobB = Number(new Date(jobB.executionDate))
+
+    return dateJobA - dateJobB
 }

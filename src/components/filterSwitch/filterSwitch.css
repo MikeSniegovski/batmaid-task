@@ -1,0 +1,18 @@
+.switchWrapper{
+  border: 2px solid var(--button-color);
+  border-radius: 4px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.switchButton {
+  background-color: transparent;
+  border: 0 none;
+  padding: 1em;
+  cursor: pointer
+}
+
+.active{
+  background-color: var(--button-color);
+  color: #fff
+}
