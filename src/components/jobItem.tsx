@@ -2,11 +2,15 @@ import React from "react";
 import {Job} from "../model/jobs";
 
 function JobItem(props: Job) {
-    const {location, type} = props
+    const {location, type, executionDate, agent, contractPeriodicity} = props
+
     return (
         <tr>
-            <td>{type}</td>
             <td>{location}</td>
+            <td>{type}</td>
+            <td>{executionDate}</td>
+            <td>{contractPeriodicity}</td>
+            <td>{agent}</td>
         </tr>
     )
 }

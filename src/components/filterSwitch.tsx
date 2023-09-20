@@ -1,5 +1,5 @@
-import {JobListFilter} from "../store/cleaningsSlice";
 import React from "react";
+import {JobListFilter} from "../model/jobs";
 
 function FilterSwitch() {
     return (

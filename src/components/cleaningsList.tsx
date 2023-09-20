@@ -1,12 +1,10 @@
-import {useSelector} from "react-redux";
-import {RootState} from "../store/store";
-
 import React from "react";
 import FilterSwitch from "./filterSwitch";
 import JobItem from "./jobItem";
+import {useGetAllCleaningsQuery} from "../services/cleaningsApi";
 
 function CleaningsList() {
-    const {jobs} = useSelector((state: RootState) => state.cleanings)
+    const {data, isLoading} = useGetAllCleaningsQuery()
 
     return (
 
@@ -24,12 +22,13 @@ function CleaningsList() {
                 </tr>
                 </thead>
                 <tbody>
-                {jobs && jobs.map(item => <JobItem key={item.uuid} {...item}/>)}
-                {jobs.length === 0 && <tr>
+                {data && data.jobs.map(item => <JobItem key={item.uuid} {...item}/>)}
+                {data?.jobs.length === 0 && <tr>
                     <td>no jobs</td>
                 </tr>}
                 </tbody>
             </table>
+            {isLoading && "Loading..."}
 
         </div>
 

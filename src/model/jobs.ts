@@ -3,6 +3,11 @@ export enum JobType {
     end_of_tenancy = "END_OF_TENANCY"
 }
 
+export enum JobListFilter {
+    previous = 'Previous',
+    upcoming = 'Upcoming'
+}
+
 export interface Job {
     "uuid": string,
     "amount": number,
@@ -16,4 +21,13 @@ export interface Job {
     "duration": number,
     "location": string,
     "locationUuid": string
+}
+
+export interface JobsByLocation {
+    "location": string,
+    "total": number,
+    "jobs": string[],
+    "uuid": string,
+    "state": string,
+    "city": string
 }
